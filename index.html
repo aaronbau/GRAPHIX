@@ -16,12 +16,72 @@
 			renderer.setSize( window.innerWidth, window.innerHeight );
 			document.body.appendChild( renderer.domElement );
 
-			var sunGeometry = new THREE.SphereGeometry( 0.2, 0.2, 0.2 );
+			var sunGeometry = new THREE.SphereGeometry( 0.9, 0.9, 0.9 );
 			var sunMaterial = new THREE.MeshBasicMaterial( {color: 0xffff00} );
 			var sunSphere = new THREE.Mesh( sunGeometry, sunMaterial );
 			scene.add( sunSphere );
 
-			camera.position.z = 5;
+			var mercuryGeometry = new THREE.SphereGeometry( 0.1, 0.1, 0.1 );
+			var mercuryMaterial = new THREE.MeshBasicMaterial( {color: 0xffffff} );
+			var mercurySphere = new THREE.Mesh( mercuryGeometry, mercuryMaterial );
+			scene.add( mercurySphere );
+
+			var venusGeometry = new THREE.SphereGeometry( 0.3, 0.3, 0.3 );
+			var venusMaterial = new THREE.MeshBasicMaterial( {color: 0xdba423} );
+			var venusSphere = new THREE.Mesh( venusGeometry, venusMaterial );
+			scene.add( venusSphere );
+
+			var earthGeometry = new THREE.SphereGeometry( 0.3, 0.3, 0.3 );
+			var earthMaterial = new THREE.MeshBasicMaterial( {color: 0x235ddb} );
+			var earthSphere = new THREE.Mesh( earthGeometry, earthMaterial );
+			scene.add( earthSphere );
+
+			var marsGeometry = new THREE.SphereGeometry( 0.2, 0.2, 0.2 );
+			var marsMaterial = new THREE.MeshBasicMaterial( {color: 0xefc47f} );
+			var marsSphere = new THREE.Mesh( marsGeometry, marsMaterial );
+			scene.add( marsSphere );
+
+			var jupiterGeometry = new THREE.SphereGeometry( 0.6, 0.6, 0.6 );
+			var jupiterMaterial = new THREE.MeshBasicMaterial( {color: 0xefb24f} );
+			var jupiterSphere = new THREE.Mesh( jupiterGeometry, jupiterMaterial );
+			scene.add( jupiterSphere );
+
+			var saturnGeometry = new THREE.SphereGeometry( 0.5, 0.5, 0.5 );
+			var saturnMaterial = new THREE.MeshBasicMaterial( {color: 0xe5c99c} );
+			var saturnSphere = new THREE.Mesh( saturnGeometry, saturnMaterial );
+			scene.add( saturnSphere );
+
+			var uranusGeometry = new THREE.SphereGeometry( 0.4, 0.4, 0.4 );
+			var uranusMaterial = new THREE.MeshBasicMaterial( {color: 0x67cce5} );
+			var uranusSphere = new THREE.Mesh( uranusGeometry, uranusMaterial );
+			scene.add( uranusSphere );
+
+			var neptuneGeometry = new THREE.SphereGeometry( 0.4, 0.4, 0.4 );
+			var neptuneMaterial = new THREE.MeshBasicMaterial( {color: 0x90daed} );
+			var neptuneSphere = new THREE.Mesh( neptuneGeometry, neptuneMaterial );
+			scene.add( neptuneSphere );
+
+			var newpos = 1;
+
+			newpos++;
+			mercurySphere.position.x = newpos;
+			newpos++;
+			venusSphere.position.x = newpos;
+			newpos++;
+			earthSphere.position.x = newpos;
+			newpos++;
+			marsSphere.position.x = newpos;
+			newpos++;
+			newpos++;
+			jupiterSphere.position.x = newpos;
+			newpos += 1.5;
+			saturnSphere.position.x = newpos;
+			newpos += 1.2;
+			uranusSphere.position.x = newpos;
+			newpos ++;
+			neptuneSphere.position.x = newpos;
+
+			camera.position.z = 20;
 
 			renderer.render(scene, camera);
 		</script>
