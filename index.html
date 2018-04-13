@@ -61,6 +61,11 @@
 			var neptuneSphere = new THREE.Mesh( neptuneGeometry, neptuneMaterial );
 			scene.add( neptuneSphere );
 
+			var plutoGeometry = new THREE.SphereGeometry( 0.1, 0.1, 0.1 );
+			var plutoMaterial = new THREE.MeshBasicMaterial( {color: 0xffffff} );
+			var plutoSphere = new THREE.Mesh( plutoGeometry, plutoMaterial );
+			scene.add( plutoSphere );
+
 			var newpos = 1;
 
 			newpos++;
@@ -80,6 +85,8 @@
 			uranusSphere.position.x = newpos;
 			newpos ++;
 			neptuneSphere.position.x = newpos;
+			newpos++;
+			plutoSphere.position.x = newpos;
 
 			camera.position.z = 20;
 
