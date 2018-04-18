@@ -19,10 +19,12 @@
 			camera.position.set(20, 20, 20 );
 			controls.update();
 
+			var OBJECTS = [];
+
 			var renderer = new THREE.WebGLRenderer();
 			renderer.setSize( window.innerWidth, window.innerHeight );
 			document.body.appendChild( renderer.domElement );
-			scene.add( new THREE.AxisHelper( 20 ));
+			scene.add( new THREE.AxesHelper( 20 ));
 
 			scene.background = new THREE.Color( 0x1d2228 );
 
@@ -171,6 +173,93 @@
 			};
 
 			animate();
+
+			OBJECTS.push( sunSphere );
+			OBJECTS.push( mercurySphere );
+			OBJECTS.push( venusSphere );
+			OBJECTS.push( earthSphere );
+			OBJECTS.push( marsSphere );
+			OBJECTS.push( jupiterSphere );
+			OBJECTS.push( saturnSphere );
+			OBJECTS.push( uranusSphere );
+			OBJECTS.push( neptuneSphere );
+			OBJECTS.push( plutoSphere );
+
+			sunSphere.name = "Sun";
+			mercurySphere.name = "Mercury";
+			venusSphere.name = "Venus";
+			earthSphere.name = "Earth";
+			marsSphere.name = "Mars";
+			jupiterSphere.name = "Jupiter";
+			saturnSphere.name = "Saturn";
+			uranusSphere.name = "Uranus";
+			neptuneSphere.name ="Neptune";
+			plutoSphere.name = "Pluto";
+
+			document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+
+			function onDocumentMouseDown( event ) {
+
+			    event.preventDefault();
+
+			    var vector = new THREE.Vector3(
+			        ( event.clientX / window.innerWidth ) * 2 - 1,
+			      - ( event.clientY / window.innerHeight ) * 2 + 1,
+			        0.5
+			    );
+			    
+			    vector.unproject(camera);
+
+			    var ray = new THREE.Raycaster( camera.position, 
+			                             vector.sub( camera.position ).normalize() );
+
+			    var intersects = ray.intersectObjects( OBJECTS );
+
+			    if ( intersects.length > 0 ) {
+			        switch(intersects[0].object.name){
+			        	case "Sun":
+			        		window.location.href = "skybox/index.html";
+			        		break;
+			        	case "Mercury":
+			        		window.location.href = "test.html";
+			        		break;
+			        	case "Venus":
+			        		window.location.href = "test.html";
+			        		break;
+			        	case "Earth":
+			        		window.location.href = "test.html";
+			        		break;
+			        	case "Mars":
+			        		window.location.href = "test.html";
+			        		break;
+			        	case "Jupiter":
+			        		window.location.href = "test.html";
+			        		break;
+			        	case "Saturn":
+			        		window.location.href = "test.html";
+			        		break;
+			        	case "Uranus":
+			        		window.location.href = "test.html";
+			        		break;
+			        	case "Neptune":
+			        		window.location.href = "test.html";
+			        		break;
+			        	case "Pluto":
+			        		window.location.href = "test.html";
+			        		break;
+			        	default:
+			        		console.log("yes");
+			        }
+			    }
+			}
+
+			var saturnRingGeometry = new THREE.TorusGeometry( 4, 0.5, 16, 100 );
+			var saturnRingMaterial = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+			var saturnRing = new THREE.Mesh( saturnRingGeometry, saturnRingMaterial );
+			scene.add( saturnRing );
+			saturnRing.rotation.x = 90;
+
+			saturnSphere.add(saturnRing);
 		</script>
 	</body>
 </html>
