@@ -2,7 +2,10 @@
 	<head>
 		<title>Explorer</title>
 		<style>
-			body { margin: 0; }
+			body { 
+				margin: 0; 
+				background-image: url("resources/space.jpg");
+			}
 			canvas { width: 100%; height: 100% }
 		</style>
 	</head>
@@ -21,12 +24,12 @@
 
 			var OBJECTS = [];
 
-			var renderer = new THREE.WebGLRenderer();
+			var renderer = new THREE.WebGLRenderer({ alpha: true });
 			renderer.setSize( window.innerWidth, window.innerHeight );
 			document.body.appendChild( renderer.domElement );
-			scene.add( new THREE.AxesHelper( 20 ));
+			//scene.add( new THREE.AxesHelper( 20 ));
 
-			scene.background = new THREE.Color( 0x1d2228 );
+			renderer.setClearColor( 0xffffff, 0);
 
 			var sunGeometry = new THREE.SphereGeometry( 5, 32, 32 );
 			var mercuryGeometry = new THREE.SphereGeometry( 1, 32, 32 );
@@ -39,16 +42,26 @@
 			var neptuneGeometry = new THREE.SphereGeometry( 1.5, 32, 32 );
 			var plutoGeometry = new THREE.SphereGeometry( 1, 32, 32 );
 
-			var sunMaterial = new THREE.MeshBasicMaterial( {color: 0xffff00} );
-			var mercuryMaterial = new THREE.MeshBasicMaterial( {color: 0xffffff} );
-			var venusMaterial = new THREE.MeshBasicMaterial( {color: 0xdba423} );
-			var earthMaterial = new THREE.MeshBasicMaterial( {color: 0x235ddb} );
-			var marsMaterial = new THREE.MeshBasicMaterial( {color: 0xefc47f} );
-			var jupiterMaterial = new THREE.MeshBasicMaterial( {color: 0xefb24f} );
-			var saturnMaterial = new THREE.MeshBasicMaterial( {color: 0xe5c99c} );
-			var uranusMaterial = new THREE.MeshBasicMaterial( {color: 0x67cce5} );
-			var neptuneMaterial = new THREE.MeshBasicMaterial( {color: 0x90daed} );
-			var plutoMaterial = new THREE.MeshBasicMaterial( {color: 0xffffff} );
+			var texture = new THREE.TextureLoader().load( 'resources/sun.jpeg' );
+			var sunMaterial = new THREE.MeshBasicMaterial( { map: texture } );
+			texture = new THREE.TextureLoader().load( 'resources/mercury.jpg' );
+			var mercuryMaterial = new THREE.MeshBasicMaterial( { map: texture } );
+			texture = new THREE.TextureLoader().load( 'resources/venus.jpg' );
+			var venusMaterial = new THREE.MeshBasicMaterial( { map: texture } );
+			texture = new THREE.TextureLoader().load( 'resources/earth.jpg' );
+			var earthMaterial = new THREE.MeshBasicMaterial( { map: texture } );
+			texture = new THREE.TextureLoader().load( 'resources/mars.jpg' );
+			var marsMaterial = new THREE.MeshBasicMaterial( { map: texture } );
+			texture = new THREE.TextureLoader().load( 'resources/jupiter.jpg' );
+			var jupiterMaterial = new THREE.MeshBasicMaterial( { map: texture } );
+			texture = new THREE.TextureLoader().load( 'resources/saturn.jpg' );
+			var saturnMaterial = new THREE.MeshBasicMaterial( { map: texture } );
+			texture = new THREE.TextureLoader().load( 'resources/uranus.jpg' );
+			var uranusMaterial = new THREE.MeshBasicMaterial( { map: texture } );
+			texture = new THREE.TextureLoader().load( 'resources/neptune.jpg' );
+			var neptuneMaterial = new THREE.MeshBasicMaterial( { map: texture } );
+			texture = new THREE.TextureLoader().load( 'resources/pluto.jpg' );
+			var plutoMaterial = new THREE.MeshBasicMaterial( { map: texture } );
 
 			var sunSphere = new THREE.Mesh( sunGeometry, sunMaterial );
 			var mercurySphere = new THREE.Mesh( mercuryGeometry, mercuryMaterial );			
@@ -144,7 +157,17 @@
 			scene.add( neptuneParent );
 			scene.add( plutoParent );
 
+			var saturnRingGeometry = new THREE.TorusGeometry( 4, 0.5, 2, 100 );
+			texture = new THREE.TextureLoader().load( 'resources/pluto.jpg' );
+			var saturnRingMaterial = new THREE.MeshBasicMaterial( { map: texture } );
+			var saturnRing = new THREE.Mesh( saturnRingGeometry, saturnRingMaterial );
+			scene.add( saturnRing );
+			saturnRing.rotation.x = 90;
 
+			saturnSphere.add(saturnRing);
+
+			var light = new THREE.AmbientLight( 0x404040 ); // soft white light
+			scene.add( light );
 
 			var animate = function () {
 				requestAnimationFrame( animate );
@@ -160,14 +183,14 @@
 			    plutoSphere.rotation.y += 0.03;
 
 				mercuryParent.rotation.y += 0.01;
-				venusParent.rotation.y += 0.02;
-				earthParent.rotation.y += 0.03;
-				marsParent.rotation.y += 0.02;
-				jupiterParent.rotation.y += 0.01;
-				saturnParent.rotation.y += 0.02;
-				uranusParent.rotation.y += 0.03;
-				neptuneParent.rotation.y += 0.02;
-				plutoParent.rotation.y += 0.01;
+				venusParent.rotation.y += 0.009;
+				earthParent.rotation.y += 0.008;
+				marsParent.rotation.y += 0.007;
+				jupiterParent.rotation.y += 0.006;
+				saturnParent.rotation.y += 0.005;
+				uranusParent.rotation.y += 0.004;
+				neptuneParent.rotation.y += 0.003;
+				plutoParent.rotation.y += 0.002;
 
 				renderer.render(scene, camera);
 			};
@@ -253,13 +276,6 @@
 			    }
 			}
 
-			var saturnRingGeometry = new THREE.TorusGeometry( 4, 0.5, 16, 100 );
-			var saturnRingMaterial = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
-			var saturnRing = new THREE.Mesh( saturnRingGeometry, saturnRingMaterial );
-			scene.add( saturnRing );
-			saturnRing.rotation.x = 90;
-
-			saturnSphere.add(saturnRing);
 		</script>
 	</body>
 </html>
