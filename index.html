@@ -15,6 +15,7 @@
 
 			var controls = new THREE.OrbitControls( camera );
 
+			var OBJECTS = [];
 			//controls.update() must be called after any manual changes to the camera's transform
 			camera.position.set(20, 20, 20 );
 			controls.update();
@@ -22,20 +23,20 @@
 			var renderer = new THREE.WebGLRenderer();
 			renderer.setSize( window.innerWidth, window.innerHeight );
 			document.body.appendChild( renderer.domElement );
-			scene.add( new THREE.AxisHelper( 20 ));
+			scene.add( new THREE.AxesHelper( 2 ));
 
 			scene.background = new THREE.Color( 0x1d2228 );
 
-			var sunGeometry = new THREE.SphereGeometry( 5, 32, 32 );
-			var mercuryGeometry = new THREE.SphereGeometry( 1, 32, 32 );
-			var venusGeometry = new THREE.SphereGeometry( 1.5, 32, 32 );
-			var earthGeometry = new THREE.SphereGeometry( 1.5, 32, 32 );
-			var marsGeometry = new THREE.SphereGeometry( 1.5, 32, 32 );
-			var jupiterGeometry = new THREE.SphereGeometry( 2.5, 32, 32 );
-			var saturnGeometry = new THREE.SphereGeometry( 2.5, 32, 32 );
-			var uranusGeometry = new THREE.SphereGeometry( 1.5, 32, 32 );
-			var neptuneGeometry = new THREE.SphereGeometry( 1.5, 32, 32 );
-			var plutoGeometry = new THREE.SphereGeometry( 1, 32, 32 );
+			var sunGeometry = new THREE.SphereGeometry( 0.9, 0.9, 0.9 );
+			var mercuryGeometry = new THREE.SphereGeometry( 0.1, 0.1, 0.1 );
+			var venusGeometry = new THREE.SphereGeometry( 0.3, 0.3, 0.3 );
+			var earthGeometry = new THREE.SphereGeometry( 0.3, 0.3, 0.3 );
+			var marsGeometry = new THREE.SphereGeometry( 0.2, 0.2, 0.2 );
+			var jupiterGeometry = new THREE.SphereGeometry( 0.6, 0.6, 0.6 );
+			var saturnGeometry = new THREE.SphereGeometry( 0.5, 0.5, 0.5 );
+			var uranusGeometry = new THREE.SphereGeometry( 0.4, 0.4, 0.4 );
+			var neptuneGeometry = new THREE.SphereGeometry( 0.4, 0.4, 0.4 );
+			var plutoGeometry = new THREE.SphereGeometry( 0.1, 0.1, 0.1 );
 
 			var sunMaterial = new THREE.MeshBasicMaterial( {color: 0xffff00} );
 			var mercuryMaterial = new THREE.MeshBasicMaterial( {color: 0xffffff} );
@@ -72,43 +73,44 @@
 
 			var newpos = 1;
 
-			newpos += 8;
+			newpos++;
 			mercurySphere.position.x = newpos;
-			mercurySphere.position.z = 7;
+			mercurySphere.position.z = 2;
 			
-			newpos += 5;
+			newpos++;
 			venusSphere.position.x = -newpos;
 			venusSphere.position.z = -2;
 			
-			newpos += 5;
+			newpos++;
 			earthSphere.position.x = newpos;
 			earthSphere.position.z = -3;
 			
-			newpos += 5;
+			newpos++;
 			marsSphere.position.x = -newpos;
 			marsSphere.position.z = 7;
 			
-			newpos += 5;
-			newpos += 5;
+			newpos++;
+			newpos++;
 			jupiterSphere.position.x = newpos;
 			jupiterSphere.position.z = 3;
 			
-			newpos += 7;
+			newpos += 1.5;
 			saturnSphere.position.x = -newpos;
 			saturnSphere.position.z = -2;
 			
-			newpos += 5;
+			newpos += 1.2;
 			uranusSphere.position.x = newpos;
 			uranusSphere.position.z = -1;
 
 			
-			newpos += 5;
+			newpos ++;
 			neptuneSphere.position.x = -newpos;
 			neptuneSphere.position.z = 6;
 			
-			newpos += 5;
+			newpos++;
 			plutoSphere.position.x = newpos;
-			plutoSphere.position.z = 5;			
+			plutoSphere.position.z = 5;
+			
 
 			camera.position.z = 20;
 
@@ -142,8 +144,6 @@
 			scene.add( neptuneParent );
 			scene.add( plutoParent );
 
-
-
 			var animate = function () {
 				requestAnimationFrame( animate );
 
@@ -171,6 +171,85 @@
 			};
 
 			animate();
+
+			OBJECTS.push( sunSphere );
+			OBJECTS.push( mercurySphere );
+			OBJECTS.push( venusSphere );
+			OBJECTS.push( earthSphere );
+			OBJECTS.push( marsSphere );
+			OBJECTS.push( jupiterSphere );
+			OBJECTS.push( saturnSphere );
+			OBJECTS.push( uranusSphere );
+			OBJECTS.push( neptuneSphere );
+			OBJECTS.push( plutoSphere );
+
+			sunSphere.name = "Sun";
+			mercurySphere.name = "Mercury";
+			venusSphere.name = "Venus";
+			earthSphere.name = "Earth";
+			marsSphere.name = "Mars";
+			jupiterSphere.name = "Jupiter";
+			saturnSphere.name = "Saturn";
+			uranusSphere.name = "Uranus";
+			neptuneSphere.name ="Neptune";
+			plutoSphere.name = "Pluto";
+
+			document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+
+			function onDocumentMouseDown( event ) {
+
+			    event.preventDefault();
+
+			    var vector = new THREE.Vector3(
+			        ( event.clientX / window.innerWidth ) * 2 - 1,
+			      - ( event.clientY / window.innerHeight ) * 2 + 1,
+			        0.5
+			    );
+			    
+			    vector.unproject(camera);
+
+			    var ray = new THREE.Raycaster( camera.position, 
+			                             vector.sub( camera.position ).normalize() );
+
+			    var intersects = ray.intersectObjects( OBJECTS );
+
+			    if ( intersects.length > 0 ) {
+			        switch(intersects[0].object.name){
+			        	case "Sun":
+			        		window.location.href = "test.html";
+			        		break;
+			        	case "Mercury":
+			        		window.location.href = "test.html";
+			        		break;
+			        	case "Venus":
+			        		window.location.href = "test.html";
+			        		break;
+			        	case "Earth":
+			        		window.location.href = "test.html";
+			        		break;
+			        	case "Mars":
+			        		window.location.href = "test.html";
+			        		break;
+			        	case "Jupiter":
+			        		window.location.href = "test.html";
+			        		break;
+			        	case "Saturn":
+			        		window.location.href = "test.html";
+			        		break;
+			        	case "Uranus":
+			        		window.location.href = "test.html";
+			        		break;
+			        	case "Neptune":
+			        		window.location.href = "test.html";
+			        		break;
+			        	case "Pluto":
+			        		window.location.href = "test.html";
+			        		break;
+			        	default:
+			        		console.log("yes");
+			        }
+			    }
+			}
 		</script>
 	</body>
 </html>
