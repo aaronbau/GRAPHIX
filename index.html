@@ -45,23 +45,23 @@
 			var texture = new THREE.TextureLoader().load( 'resources/sun.jpeg' );
 			var sunMaterial = new THREE.MeshBasicMaterial( { map: texture } );
 			texture = new THREE.TextureLoader().load( 'resources/mercury.jpg' );
-			var mercuryMaterial = new THREE.MeshBasicMaterial( { map: texture } );
+			var mercuryMaterial = new THREE.MeshLambertMaterial( { map: texture } );
 			texture = new THREE.TextureLoader().load( 'resources/venus.jpg' );
-			var venusMaterial = new THREE.MeshBasicMaterial( { map: texture } );
+			var venusMaterial = new THREE.MeshLambertMaterial( { map: texture } );
 			texture = new THREE.TextureLoader().load( 'resources/earth.jpg' );
-			var earthMaterial = new THREE.MeshBasicMaterial( { map: texture } );
+			var earthMaterial = new THREE.MeshLambertMaterial( { map: texture } );
 			texture = new THREE.TextureLoader().load( 'resources/mars.jpg' );
-			var marsMaterial = new THREE.MeshBasicMaterial( { map: texture } );
+			var marsMaterial = new THREE.MeshLambertMaterial( { map: texture } );
 			texture = new THREE.TextureLoader().load( 'resources/jupiter.jpg' );
-			var jupiterMaterial = new THREE.MeshBasicMaterial( { map: texture } );
+			var jupiterMaterial = new THREE.MeshLambertMaterial( { map: texture } );
 			texture = new THREE.TextureLoader().load( 'resources/saturn.jpg' );
-			var saturnMaterial = new THREE.MeshBasicMaterial( { map: texture } );
+			var saturnMaterial = new THREE.MeshLambertMaterial( { map: texture } );
 			texture = new THREE.TextureLoader().load( 'resources/uranus.jpg' );
-			var uranusMaterial = new THREE.MeshBasicMaterial( { map: texture } );
+			var uranusMaterial = new THREE.MeshLambertMaterial( { map: texture } );
 			texture = new THREE.TextureLoader().load( 'resources/neptune.jpg' );
-			var neptuneMaterial = new THREE.MeshBasicMaterial( { map: texture } );
+			var neptuneMaterial = new THREE.MeshLambertMaterial( { map: texture } );
 			texture = new THREE.TextureLoader().load( 'resources/pluto.jpg' );
-			var plutoMaterial = new THREE.MeshBasicMaterial( { map: texture } );
+			var plutoMaterial = new THREE.MeshLambertMaterial( { map: texture } );
 
 			var sunSphere = new THREE.Mesh( sunGeometry, sunMaterial );
 			var mercurySphere = new THREE.Mesh( mercuryGeometry, mercuryMaterial );			
@@ -159,14 +159,15 @@
 
 			var saturnRingGeometry = new THREE.TorusGeometry( 4, 0.5, 2, 100 );
 			texture = new THREE.TextureLoader().load( 'resources/pluto.jpg' );
-			var saturnRingMaterial = new THREE.MeshBasicMaterial( { map: texture } );
+			var saturnRingMaterial = new THREE.MeshLambertMaterial( { map: texture } );
 			var saturnRing = new THREE.Mesh( saturnRingGeometry, saturnRingMaterial );
 			scene.add( saturnRing );
 			saturnRing.rotation.x = 90;
 
 			saturnSphere.add(saturnRing);
 
-			var light = new THREE.AmbientLight( 0x404040 ); // soft white light
+			var light = new THREE.SpotLight(0xffd8af, 2, 200, 360, 2, 2);
+			light.intensity = 4;
 			scene.add( light );
 
 			var animate = function () {
