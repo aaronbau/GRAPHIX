@@ -172,7 +172,8 @@
 
 			var animate = function () {
 				requestAnimationFrame( animate );
-
+				
+				sunSphere.rotation.y += 0.03;
 				mercurySphere.rotation.y += 0.03;
 			    venusSphere.rotation.y += 0.03;
 			    earthSphere.rotation.y += 0.03;
