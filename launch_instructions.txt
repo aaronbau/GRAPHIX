@@ -1,0 +1,1 @@
+Use firefox to load the project
